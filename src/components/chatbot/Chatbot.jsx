@@ -19,6 +19,8 @@ import {
   faPaperPlane,
   faChevronDown,
   faTimes,
+  faExpand,
+  faCompress,
 } from '@fortawesome/free-solid-svg-icons';
 import { faImage } from '@fortawesome/free-regular-svg-icons';
 import { Emitter, decideTextColor, scrollToBottom } from '../../utils/utils';
@@ -29,7 +31,7 @@ import { fetchEventSource } from '@microsoft/fetch-event-source';
 class RetriableError extends Error {}
 class FatalError extends Error {}
 
-export const Chatbot = ({ isOpen, setIsOpen, isEmbeddedBox }) => {
+export const Chatbot = ({ isOpen, setIsOpen, isEmbeddedBox, isFullscreen, setIsFullscreen }) => {
   const [chatInput, setChatInput] = useState('');
   const [selectedImages, setSelectedImages] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
@@ -900,7 +902,8 @@ export const Chatbot = ({ isOpen, setIsOpen, isEmbeddedBox }) => {
       className={clsx(
         alignment === 'left' ? 'docsbot-left' : '',
         'docsbot-wrapper',
-        isEmbeddedBox ? 'docsbot-embedded' : 'docsbot-floating'
+        isEmbeddedBox ? 'docsbot-embedded' : 'docsbot-floating',
+        isFullscreen && 'docsbot-fullscreen'
       )}
       style={
         mediaMatch.matches
@@ -932,9 +935,8 @@ export const Chatbot = ({ isOpen, setIsOpen, isEmbeddedBox }) => {
           <div
             className={clsx(
               'docsbot-chat-header',
-              isEmbeddedBox && hideHeader && 'unbranded',
-              !(Object.keys(state.messages).length <= 1 && Object.keys(questions).length >= 1) &&
-                'is-small'
+              'is-small', // Always use the small header state for consistency
+              isEmbeddedBox && hideHeader && 'unbranded'
             )}
             data-shadow={isWhite && (isFloatingSmall || !isEmbeddedBox || isEmbeddedBox)}
           >
@@ -943,6 +945,17 @@ export const Chatbot = ({ isOpen, setIsOpen, isEmbeddedBox }) => {
                 <FontAwesomeIcon icon={faRefresh} />
                 <span className="docsbot-screen-reader-only">{labels?.resetChat}</span>
               </button>
+              {!isEmbeddedBox && setIsFullscreen && (
+                <button 
+                  onClick={() => setIsFullscreen(!isFullscreen)} 
+                  className="docsbot-chat-header-button"
+                >
+                  <FontAwesomeIcon icon={isFullscreen ? faCompress : faExpand} />
+                  <span className="docsbot-screen-reader-only">
+                    {isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
+                  </span>
+                </button>
+              )}
               <div
                 className="docsbot-chat-header-content"
                 style={{

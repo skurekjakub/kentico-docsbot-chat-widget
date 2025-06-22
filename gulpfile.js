@@ -9,11 +9,6 @@ const sass = require('gulp-sass')(require('sass'));
 const cleanCSS = require('gulp-clean-css');
 const autoprefixer = require('gulp-autoprefixer');
 
-/**
- * Paths & Files
- */
-const fileName = 'docsbot-ai';
-
 const srcInput = {};
 srcInput.css = './src/assets/scss/';
 

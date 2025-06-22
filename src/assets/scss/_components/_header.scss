@@ -9,6 +9,20 @@
       pointer-events: all;
       visibility: visible;
       opacity: 1;
+      
+      // Position multiple buttons correctly
+      &:first-of-type {
+        right: 36px; // Position first button (refresh) to the left of second button
+      }
+      
+      &:last-of-type {
+        right: 0; // Position last button (fullscreen) at the right edge
+      }
+      
+      // If there's only one button, position it at the right
+      &:only-of-type {
+        right: 0;
+      }
     }
 
     // Element: .docsbot-chat-header-title
@@ -91,9 +105,7 @@
     &:focus {
       border-color: var(--docsbot-reset-button--color, $color-neutral-300);
       outline: none;
-    }
-
-    &:active {
+    }    &:active {
       svg {
         transform: rotate(45deg);
       }

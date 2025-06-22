@@ -19,6 +19,7 @@ fontAwesomeConfig.autoAddCss = false;
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const { customCSS } = useConfig();
 
   useEffect(() => {
@@ -73,7 +74,7 @@ function App() {
       <FloatingButton {...{ isOpen, setIsOpen }} />
       {isOpen ? (
         <ChatbotProvider>
-          <Chatbot {...{ isOpen, setIsOpen }} />
+          <Chatbot {...{ isOpen, setIsOpen, isFullscreen, setIsFullscreen }} />
         </ChatbotProvider>
       ) : null}
     </ReactShadowRoot>
