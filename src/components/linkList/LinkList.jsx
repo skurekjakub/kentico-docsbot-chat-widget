@@ -1,12 +1,7 @@
-export const LinkList = (props) => {
-  const linkMarkup = props.options.map((link) => (
+export const LinkList = props => {
+  const linkMarkup = props.options.map(link => (
     <li key={link.id} className="link-list-item">
-      <a
-        href={link.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="link-list-item-url"
-      >
+      <a href={link.url} target="_blank" rel="noopener noreferrer" className="link-list-item-url">
         {link.text}
       </a>
     </li>

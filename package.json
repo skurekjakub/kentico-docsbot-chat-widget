@@ -1,11 +1,15 @@
 {
   "scripts": {
     "build": "gulp build && webpack --mode production",
-	  "start": "gulp build && npm-run-all --parallel dev:web dev:css",
+    "start": "gulp build && npm-run-all --parallel dev:web dev:css",
     "dev:web": "webpack serve --mode development --client-overlay --port=3005",
     "dev:css": "gulp watch",
     "preview": "npm run build && serve build",
     "prepare": "npm run build && rm build/index.html",
+    "format": "prettier --write \"**/*.{js,jsx,scss,css,json,md}\"",
+    "format:check": "prettier --check \"**/*.{js,jsx,scss,css,json,md}\"",
+    "format:js": "prettier --write \"src/**/*.{js,jsx}\"",
+    "format:styles": "prettier --write \"src/**/*.scss\"",
     "prettier": "prettier **/*.scss --write"
   },
   "devDependencies": {
@@ -35,7 +39,7 @@
     "webpack": "^5.75.0",
     "webpack-bundle-analyzer": "^4.10.2",
     "webpack-cli": "^5.0.1",
-    "webpack-dev-server": "^4.11.1"
+    "webpack-dev-server": "^5.2.2"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.3.0",

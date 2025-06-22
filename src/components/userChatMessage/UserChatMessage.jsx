@@ -1,4 +1,4 @@
-import { Loader } from "../loader/Loader";
+import { Loader } from '../loader/Loader';
 
 export const UserChatMessage = ({ loading, message, imageUrls }) => {
   return (
@@ -7,16 +7,16 @@ export const UserChatMessage = ({ loading, message, imageUrls }) => {
         <div className="docsbot-user-chat-images">
           {imageUrls.map((url, index) => (
             <div key={index} className="docsbot-user-chat-image-container">
-              <img 
-                src={url} 
-                alt={`Attached image ${index + 1}`} 
+              <img
+                src={url}
+                alt={`Attached image ${index + 1}`}
                 className="docsbot-user-chat-image"
               />
             </div>
           ))}
         </div>
       )}
-      
+
       <div className="docsbot-user-chat-message">
         {(() => {
           if (loading) {

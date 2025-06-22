@@ -14,17 +14,11 @@
 /// @author Leighton Quito (iamleigh.com)
 /// -----------------------------------------------------------------------------
 @function tint($color, $percentage) {
-	$base-color: #ffffff;
+  $base-color: #ffffff;
 
-	@if meta.type-of($color) == 'color' {
-		@return color.mix($base-color, $color, $percentage);
-	} @else if
-		meta.type-of($color) ==
-		'string' and
-		string.index($color + '', 'var')
-	{
-		@return string.unquote(
-			'color-mix(in srgb, #{$base-color} #{$percentage}, #{$color})'
-		);
-	}
+  @if meta.type-of($color) == 'color' {
+    @return color.mix($base-color, $color, $percentage);
+  } @else if meta.type-of($color) == 'string' and string.index($color + '', 'var') {
+    @return string.unquote('color-mix(in srgb, #{$base-color} #{$percentage}, #{$color})');
+  }
 }

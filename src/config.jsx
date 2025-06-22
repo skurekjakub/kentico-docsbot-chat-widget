@@ -1,11 +1,11 @@
-import { v4 as uuidv4 } from "uuid";
-import { LinkList } from "./components/linkList/LinkList";
+import { v4 as uuidv4 } from 'uuid';
+import { LinkList } from './components/linkList/LinkList';
 
 export const chatbotConfig = ({ dispatch }) => {
   return {
     initialMessages: [
       {
-        message: "What can I help you with?",
+        message: 'What can I help you with?',
         /*
         options: [
           {

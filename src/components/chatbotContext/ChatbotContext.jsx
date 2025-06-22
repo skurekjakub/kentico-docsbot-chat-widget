@@ -1,17 +1,17 @@
-import React from "react"
-import { v4 as uuidv4 } from "uuid"
+import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
-const ChatbotContext = React.createContext()
+const ChatbotContext = React.createContext();
 
 function chatbotReducer(state, action) {
   switch (action.type) {
-    case "save_history":
+    case 'save_history':
       return {
         ...state,
         chatHistory: action.payload.chatHistory,
-      }
-    case "add_message":
-      const id = action.payload.id || uuidv4()
+      };
+    case 'add_message':
+      const id = action.payload.id || uuidv4();
       return {
         ...state,
         lastMessage: action.payload.timestamp || Date.now(),
@@ -26,8 +26,8 @@ function chatbotReducer(state, action) {
             ...action.payload,
           },
         },
-      }
-    case "update_message":
+      };
+    case 'update_message':
       return {
         ...state,
         messages: {
@@ -37,19 +37,19 @@ function chatbotReducer(state, action) {
             ...action.payload,
           },
         },
-      }
-    case "load_conversation":
+      };
+    case 'load_conversation':
       return {
         messages: action.payload.savedConversation || [],
-      }
-    case "clear_messages":
+      };
+    case 'clear_messages':
       return {
         messages: [],
-        chatHistory: []
-      }
+        chatHistory: [],
+      };
 
     default: {
-      throw new Error(`Unhandled action type: ${action.type}`)
+      throw new Error(`Unhandled action type: ${action.type}`);
     }
   }
 }
@@ -58,17 +58,17 @@ export function ChatbotProvider({ children }) {
   const [state, dispatch] = React.useReducer(chatbotReducer, {
     messages: [],
     suggestions: [],
-    chatInput: "",
+    chatInput: '',
     lastMessage: Date.now(),
-  })
-  const value = { state, dispatch }
-  return <ChatbotContext.Provider value={value}>{children}</ChatbotContext.Provider>
+  });
+  const value = { state, dispatch };
+  return <ChatbotContext.Provider value={value}>{children}</ChatbotContext.Provider>;
 }
 
 export function useChatbot() {
-  const context = React.useContext(ChatbotContext)
+  const context = React.useContext(ChatbotContext);
   if (context === undefined) {
-    throw new Error("useChatbot must be used within a ChatbotProvider")
+    throw new Error('useChatbot must be used within a ChatbotProvider');
   }
-  return context
+  return context;
 }

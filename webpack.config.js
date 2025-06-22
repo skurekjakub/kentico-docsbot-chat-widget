@@ -1,67 +1,69 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = (_, { mode }) => {
   const isProduction = mode === 'production';
 
   return {
-    entry: "./src/components/embeddableWidget/EmbeddableWidget.jsx",
+    entry: './src/components/embeddableWidget/EmbeddableWidget.jsx',
     output: {
-      path: path.resolve(__dirname, "build"),
-      publicPath: isProduction ? "https://widget.docsbot.ai/" : "/",
-      filename: "chat.js",
-      library: "DocsBotAI",
-      libraryExport: "default",
-      libraryTarget: "window",
+      path: path.resolve(__dirname, 'build'),
+      publicPath: isProduction ? 'https://widget.docsbot.ai/' : '/',
+      filename: 'chat.js',
+      library: 'DocsBotAI',
+      libraryExport: 'default',
+      libraryTarget: 'window',
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: path.join(__dirname, "public", "index.html"),
+        template: path.join(__dirname, 'public', 'index.html'),
       }),
       new CleanWebpackPlugin(),
     ],
     devServer: {
       static: {
-        directory: path.join(__dirname, "public"),
+        directory: path.join(__dirname, 'public'),
       },
       port: 3000,
-	  watchFiles: ["src/assets/scss/**/*.scss"],
+      watchFiles: ['src/assets/scss/**/*.scss'],
     },
     module: {
       rules: [
         {
-			test: /\.svg$/i,
-			use: [{
-			  loader: '@svgr/webpack',
-			  options: {
-				svgoConfig: {
-					plugins: [
-					  {
-						name: 'preset-default',
-						params: {
-						  overrides: {
-							// disable plugins
-							removeViewBox: false,
-						  },
-						},
-					  },
-					],
-				  },
-			  }
-			}]
+          test: /\.svg$/i,
+          use: [
+            {
+              loader: '@svgr/webpack',
+              options: {
+                svgoConfig: {
+                  plugins: [
+                    {
+                      name: 'preset-default',
+                      params: {
+                        overrides: {
+                          // disable plugins
+                          removeViewBox: false,
+                        },
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+          ],
         },
         {
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
-          use: ["babel-loader"],
+          use: ['babel-loader'],
         },
         {
           test: /\.css$/i,
-          use: ["style-loader", "css-loader"],
+          use: ['style-loader', 'css-loader'],
         },
-        { resourceQuery: /raw/, type: "asset/source" },
+        { resourceQuery: /raw/, type: 'asset/source' },
       ],
     },
     optimization: {
@@ -73,7 +75,7 @@ module.exports = (_, { mode }) => {
       ],
     },
     resolve: {
-      extensions: ["*", ".js", ".jsx"],
+      extensions: ['*', '.js', '.jsx'],
     },
   };
 };

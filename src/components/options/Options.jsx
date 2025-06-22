@@ -1,10 +1,6 @@
 export const Options = ({ options }) => {
-  const optionsMarkup = options.map((option) => (
-    <button
-      className="initial-option-button"
-      key={option.id}
-      onClick={option.handler}
-    >
+  const optionsMarkup = options.map(option => (
+    <button className="initial-option-button" key={option.id} onClick={option.handler}>
       {option.text}
     </button>
   ));
